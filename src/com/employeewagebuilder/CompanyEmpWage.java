@@ -9,20 +9,26 @@ public static void main(String[] args) {
 	         * Here i have used Random function to generate random numbers.
 	         */
 	        int IS_PRESENT=1;
-	        int empCheck =(int) Math.floor(Math.random()*10)%2;
-	        if(empCheck == IS_PRESENT)
-	            System.out.println("Employee is Present");
-	        else
-	            System.out.println("Employee is Absent");
+	        int partTimeEmpHr=4,partTime=2;
+	        int empRatePerHr = 20;
+	        int fullTimeEmpHrs = 8;
+	        int empCheck =(int) Math.floor(Math.random()*10)%3;
 	        /**
 	         * This will calculate the daily wage of Employee.
 	         */
-	        int empRatePerHr = 20;
-	        int empHrs = 8;
-	        if( IS_PRESENT == empCheck)
-	            System.out.println("Employee Daily Wage is :" +Math.multiplyExact(empHrs,empRatePerHr));
-	        else
-	            System.out.println("Employee Daily Wage is : 0");
+	        if(empCheck == IS_PRESENT) {
+	            System.out.println("Employee is Present");
+	            System.out.println("Employee Daily Wage is :" + Math.multiplyExact(fullTimeEmpHrs, empRatePerHr));
+	        }
+	        /**
+	         * This will calculate part-time wage of Employee
+	         */
+	        else if(empCheck==partTime){
+	            System.out.println("Employee is Present but Half-Time");
+	            System.out.println("Employee's Part-Time Wage is :" +Math.multiplyExact(partTimeEmpHr,empRatePerHr));
+	        }else{
+	            System.out.println("Employee is Absent");
+	        }
 
 		}
 
