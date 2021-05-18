@@ -1,5 +1,6 @@
 package com.employeewagebuilder;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * EmpWageBuilder class implements interface methods.
@@ -9,23 +10,21 @@ import java.util.Scanner;
  */
 
 public class EmpWageBuilder implements EmpWageInterface {
-	/**
-	 * Created an integer variable assigned 0.
-	 */
-    private int numOfCompany = 0;
+	
     /**
-     * Creating an array of class CompanyEmpWage.
+     * Creating an Arraylist of class CompanyEmpWage named companyEmpWageList.
+     * Inside the constructor it's taking the size of that arraylist.
      */
-    private CompanyEmpWage[] companyEmpWageArray;
+   
+    private ArrayList<CompanyEmpWage> companyEmpWageList;
+
+    public EmpWageBuilder(int n)
+    {
+        companyEmpWageList = new ArrayList<>();
+    }
 
     /**
-     * Inside the constructor it's taking the size of that array to 5.
-     */
-    public EmpWageBuilder(int n) {
-        companyEmpWageArray = new CompanyEmpWage[n];
-    }
-    /**
-     * this method taking these parameters and adding the company employee wage to that array.
+     * this method taking these parameters and adding the company employee wage to that arraylist.
      * @param company
      * @param empRatePerHr
      * @param noOfWorkingDays
@@ -33,21 +32,22 @@ public class EmpWageBuilder implements EmpWageInterface {
      */
 
     public void addCompanyEmpWage(String company, int empRatePerHr, int noOfWorkingDays, int maxHrsPerMonth) {
-        companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company, empRatePerHr, noOfWorkingDays,maxHrsPerMonth);
-        numOfCompany++;
+    	CompanyEmpWage companyEmpWage = new CompanyEmpWage(company, empRatePerHr, noOfWorkingDays,maxHrsPerMonth);
+    	companyEmpWageList.add(companyEmpWage);
     }
     /**
-     * this method will iterate till the size of numofcompany.
+     * this method will iterate till the size of the arraylist.
      * internally it's calling setTotalEmpWage method by passing integer as parameter.
      */
 
     public void computeEmpWage() {
-        for (int i = 0; i < numOfCompany; i++) {
-            companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
-            System.out.println(companyEmpWageArray[i]);
+
+        for (int i = 0; i < companyEmpWageList.size(); i++) {
+            CompanyEmpWage companyEmpWage = companyEmpWageList.get(i);
+            companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
+            System.out.println(companyEmpWage);
         }
     }
-
     /**
      * This method will compute the Employee wage.
      * Taking the object of CompanyEmpWage class as a parameter.
