@@ -1,6 +1,14 @@
 package com.employeewagebuilder;
+import java.util.Scanner;
 
-public class EmpWageBuilder {
+/**
+ * EmpWageBuilder class implements interface methods.
+ * So all methods should be Public.
+ * @author User
+ *
+ */
+
+public class EmpWageBuilder implements EmpWageInterface {
 	/**
 	 * Created an integer variable assigned 0.
 	 */
@@ -13,8 +21,8 @@ public class EmpWageBuilder {
     /**
      * Inside the constructor it's taking the size of that array to 5.
      */
-    public EmpWageBuilder() {
-        companyEmpWageArray = new CompanyEmpWage[5];
+    public EmpWageBuilder(int n) {
+        companyEmpWageArray = new CompanyEmpWage[n];
     }
     /**
      * this method taking these parameters and adding the company employee wage to that array.
@@ -24,7 +32,7 @@ public class EmpWageBuilder {
      * @param maxHrsPerMonth
      */
 
-    private void addCompanyEmpWage(String company, int empRatePerHr, int noOfWorkingDays, int maxHrsPerMonth) {
+    public void addCompanyEmpWage(String company, int empRatePerHr, int noOfWorkingDays, int maxHrsPerMonth) {
         companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company, empRatePerHr, noOfWorkingDays,maxHrsPerMonth);
         numOfCompany++;
     }
@@ -33,7 +41,7 @@ public class EmpWageBuilder {
      * internally it's calling setTotalEmpWage method by passing integer as parameter.
      */
 
-    private void computeEmpWage() {
+    public void computeEmpWage() {
         for (int i = 0; i < numOfCompany; i++) {
             companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
             System.out.println(companyEmpWageArray[i]);
@@ -85,13 +93,35 @@ public class EmpWageBuilder {
     public static void main(String[] args){
         System.out.println("Welcome to Employee Wage Computation Program...");
 
+        int num;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter No. of Companies");
+        num = scanner.nextInt();
         /**
-         * Created Objects.
-         * Called the computeEmpWage method.
+         * here i have created an object of empwagebuilder class using EmpWageInterface.
+         * Interface can store values of subclass.
+         * taking num as a parameter for the constructor.
          */
-        EmpWageBuilder empWageBuilder = new EmpWageBuilder();
-        empWageBuilder.addCompanyEmpWage("Dmart", 20, 20, 100);
-        empWageBuilder.addCompanyEmpWage("Reliance", 10, 24, 120);
+        EmpWageInterface empWageBuilder = new EmpWageBuilder(num);
+        /**
+         * this for loop will iterate till size of num given as input.
+         * it will take input and store in addCompanyEmpWage method.
+         */
+        for (int i = 0; i < num; i++) {
+            System.out.println("Enter Company Details as given:");
+            System.out.println("Enter your Company name: ");
+            String CompanyName=scanner.next();
+            System.out.println("Enter your Employee rate per hour: ");
+            int emprate=scanner.nextInt();
+            System.out.println("Enter your No. of Working Days: ");
+            int workdays=scanner.nextInt();
+            System.out.println("Enter your Max hours per Month: ");
+            int maxHrs=scanner.nextInt();
+            
+            empWageBuilder.addCompanyEmpWage(CompanyName,emprate,workdays,maxHrs);
+        }
+        System.out.println("");
         empWageBuilder.computeEmpWage();
 	}
+
 }
